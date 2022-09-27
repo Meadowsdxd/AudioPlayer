@@ -4,4 +4,6 @@
     <string name="shuffle_btn">Shuffle</string>
     <string name="play_list">PlayList</string>
     <string name="total_songs">Total songs</string>
+    <string name="world_of_music">World of Music</string>
+
 </resources>
