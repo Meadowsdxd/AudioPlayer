@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:ignore="UselessParent">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="@string/shuffle_btn"
+        android:textColor="@color/black"
+        android:contentDescription="@string/shuffle_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:drawableTop="@drawable/ic_baseline_shuffle_24"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="@string/favorite_btn"
+        android:textColor="@color/black"
+        android:contentDescription="@string/favorite_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:drawableTop="@drawable/ic_baseline_favorite_border_24"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="@string/play_list"
+        android:textColor="@color/black"
+        android:contentDescription="@string/play_list"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:drawableTop="@drawable/ic_baseline_library_music_24"
+        android:textAllCaps="false"/>
+
+</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/total_songs"
+        android:layout_margin="10dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</LinearLayout>

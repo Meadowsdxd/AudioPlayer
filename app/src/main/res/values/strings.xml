@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AudioPlayer</string>
+    <string name="favorite_btn">Favorites</string>
+    <string name="shuffle_btn">Shuffle</string>
+    <string name="play_list">PlayList</string>
+    <string name="total_songs">Total songs</string>
+</resources>
