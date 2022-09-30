@@ -14,4 +14,6 @@
     <string name="share_btn">Share</string>
     <string name="equalizer_btn">Equalizer</string>
     <string name="timer_btn">Timer</string>
+    <string name="close">Close</string>
+    <string name="open">Open</string>
 </resources>
