@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-   <item android:id="@+id/item1"
-       android:contentDescription="item1"
-       android:title="item1"/>
-    <item android:id="@+id/item2"
-        android:contentDescription="item2"
-        android:title="item2"/>
-    <item android:id="@+id/item3"
-        android:contentDescription="item3"
-        android:title="item3"/>
-    <item android:id="@+id/item4"
-        android:contentDescription="item4"
-        android:title="item4"/>
+   <item android:id="@+id/Feedback_item"
+       android:icon="@drawable/ic_feedback"
+       android:title="@string/Feedback"/>
+    <item android:id="@+id/Settings_item"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/Settings"/>
+    <item android:id="@+id/About_item"
+        android:icon="@drawable/ic_about"
+        android:title="@string/About"/>
+    <item android:id="@+id/Exit_item"
+        android:icon="@drawable/ic_exit"
+        android:title="@string/Exit"/>
 </menu>

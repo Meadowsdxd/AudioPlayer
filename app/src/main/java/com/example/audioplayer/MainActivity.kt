@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import com.example.audioplayer.databinding.ActivityMainBinding
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,6 +38,17 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity,PlaylistActivity::class.java))
         }
 
+        binding.navView.setNavigationItemSelectedListener{
+            when(it.itemId){
+                R.id.Feedback_item->Toast.makeText(this@MainActivity,"Feed",Toast.LENGTH_SHORT).show()
+                R.id.About_item->Toast.makeText(this@MainActivity,"About_item",Toast.LENGTH_SHORT).show()
+                R.id.Settings_item->Toast.makeText(this@MainActivity,"Settings_item",Toast.LENGTH_SHORT).show()
+                R.id.Exit_item-> exitProcess(1)
+
+            }
+            true
+
+        }
     }
     //For requesting permission
     private fun requestRuntimePermission(){

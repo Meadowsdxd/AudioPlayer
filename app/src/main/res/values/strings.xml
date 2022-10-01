@@ -16,4 +16,11 @@
     <string name="timer_btn">Timer</string>
     <string name="close">Close</string>
     <string name="open">Open</string>
+    <string name="app_icon">AppIcon</string>
+    <string name="Feedback">Feedback</string>
+    <string name="Settings">Settings</string>
+    <string name="About">About</string>
+    <string name="Exit">Exit</string>
+    <string name="text_nav">Welcome</string>
+
 </resources>
