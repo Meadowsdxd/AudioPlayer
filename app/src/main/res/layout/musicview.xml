@@ -21,7 +21,9 @@
         android:layout_toStartOf="@+id/songDuration"
         android:layout_toEndOf="@+id/imageView"
         android:textColor="@color/black"
-        android:layout_marginStart="5dp"/>
+        android:layout_marginStart="5dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"/>
     <TextView
         android:id="@+id/songAlbumMV"
         android:layout_width="wrap_content"
@@ -29,7 +31,8 @@
         android:text="@string/song_name"
         android:layout_toStartOf="@+id/songDuration"
         android:layout_toEndOf="@+id/imageView"
-
+        android:gravity="center_vertical"
+        android:singleLine="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"/>
     <TextView
