@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
     private  lateinit var toggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestRuntimePermission()
         setTheme(R.style.Theme_AudioPlayer)
+        requestRuntimePermission()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
