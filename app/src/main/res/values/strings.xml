@@ -22,5 +22,5 @@
     <string name="About">About</string>
     <string name="Exit">Exit</string>
     <string name="text_nav">Welcome</string>
-
+    <string name="song_album">Song Album</string>
 </resources>

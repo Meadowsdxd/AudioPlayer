@@ -11,7 +11,7 @@ class Favorite : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.coolBlue)
+        setTheme(R.style.coolPink)
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
