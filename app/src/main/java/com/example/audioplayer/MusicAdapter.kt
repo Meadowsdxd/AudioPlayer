@@ -36,6 +36,8 @@ class MusicAdapter(private val  context:Context,private val  musicList:ArrayList
             .into(holder.image)
         holder.root.setOnClickListener{
             val intent=Intent(context,activity_player::class.java)
+            intent.putExtra("index",position)
+            intent.putExtra("class","MusicAdapter")
             ContextCompat.startActivity(context,intent,null)
         }
     }
