@@ -44,11 +44,13 @@
 
     </LinearLayout>
 <com.google.android.material.imageview.ShapeableImageView
+    android:id="@+id/songImagePA"
     android:layout_width="250dp"
     android:layout_height="250dp"
     android:layout_margin="10dp"
     android:src="@drawable/ic_musicdesk"/>
     <TextView
+        android:id="@+id/songNamePA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -66,10 +68,12 @@
         android:gravity="center"
         android:layout_weight="1">
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/playBackPA"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:icon="@drawable/ic_back"/>
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/playPausePA"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:icon="@drawable/ic_pause"
