@@ -79,6 +79,7 @@
             app:icon="@drawable/ic_pause"
             android:layout_marginHorizontal="25dp"/>
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/playNextPA"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:icon="@drawable/ic_next" />

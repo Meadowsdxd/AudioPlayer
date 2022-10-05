@@ -27,6 +27,12 @@ class activity_player : AppCompatActivity() {
         binding.playPausePA.setOnClickListener{
             if(isPlaying) pauseMusic() else playMusic()
         }
+        binding.playBackPA.setOnClickListener {
+    prevNextSong(increment = false)
+        }
+        binding.playNextPA.setOnClickListener {
+            prevNextSong(increment = true)
+        }
     }
     private fun setLayout(){
         Glide.with(this).load(musicListPA[songPosition].artURI).apply(
@@ -68,5 +74,24 @@ class activity_player : AppCompatActivity() {
         binding.playPausePA.setIconResource(R.drawable.ic_play)
         isPlaying=false
         mediaPlayer!!.pause()
+    }
+    private  fun prevNextSong(increment:Boolean){
+        if(increment){
+            setSongPosition(increment=true)
+            setLayout()
+            createMediaPlayer()
+        }else{
+            setSongPosition(increment=false)
+            setLayout()
+            createMediaPlayer()
+        }
+    }
+    private fun setSongPosition(increment: Boolean){
+        if(increment){
+            if(musicListPA.size-1== songPosition) songPosition=0 else ++songPosition
+        }else{  if(0== songPosition) songPosition= musicListPA.size-1 else --songPosition
+
+
+        }
     }
 }
