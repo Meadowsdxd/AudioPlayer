@@ -63,6 +63,14 @@ class activity_player : AppCompatActivity() {
                 createMediaPlayer()
 
             }
+            "MainActivity"->{
+                musicListPA= ArrayList()
+                musicListPA.addAll(MainActivity.MusiListMA)
+                musicListPA.shuffle()
+                setLayout()
+                createMediaPlayer()
+
+            }
         }
     }
     private  fun  playMusic(){
@@ -90,8 +98,6 @@ class activity_player : AppCompatActivity() {
         if(increment){
             if(musicListPA.size-1== songPosition) songPosition=0 else ++songPosition
         }else{  if(0== songPosition) songPosition= musicListPA.size-1 else --songPosition
-
-
         }
     }
 }

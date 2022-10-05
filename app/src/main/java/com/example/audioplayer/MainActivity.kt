@@ -34,7 +34,10 @@ class MainActivity : AppCompatActivity() {
         init()
 
         binding.shuffleBTN.setOnClickListener{
-             startActivity( Intent(this@MainActivity,activity_player::class.java))
+            val intent=Intent(this@MainActivity,activity_player::class.java)
+            intent.putExtra("index",0)
+            intent.putExtra("class","MainActivity")
+            startActivity(intent)
         }
         binding.favoriteBTN.setOnClickListener{
             startActivity(Intent(this@MainActivity,Favorite::class.java))
