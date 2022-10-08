@@ -1,5 +1,6 @@
 package com.example.audioplayer
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -9,6 +10,7 @@ import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.media.MediaSession2
 import android.os.Binder
+import android.os.Build
 import android.os.IBinder
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
@@ -25,12 +27,35 @@ class MusicService: Service() {
 
     inner class MyBinder : Binder() {
         fun  currentService(): MusicService {
-        return this@MusicService
+            return this@MusicService
+        }
     }
-    }
-    fun showNotification(){
+    @SuppressLint("UnspecifiedImmutableFlag")
+    fun showNotification(playPauseBtn: Int){
+        val intent = Intent(baseContext, MainActivity::class.java)
+
+        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.FLAG_IMMUTABLE
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
+
+        val contentIntent = PendingIntent.getActivity(this, 0, intent, flag)
+
+        val prevIntent = Intent(baseContext, NotificationReceiver::class.java).setAction(AppClass.BACK)
+        val prevPendingIntent = PendingIntent.getBroadcast(baseContext, 0, prevIntent, flag)
+
+        val playIntent = Intent(baseContext, NotificationReceiver::class.java).setAction(AppClass.PLAY)
+        val playPendingIntent = PendingIntent.getBroadcast(baseContext, 0, playIntent, flag)
+
+        val nextIntent = Intent(baseContext, NotificationReceiver::class.java).setAction(AppClass.NEXT)
+        val nextPendingIntent = PendingIntent.getBroadcast(baseContext, 0, nextIntent, flag)
+
+        val exitIntent = Intent(baseContext, NotificationReceiver::class.java).setAction(AppClass.EXIT)
+        val exitPendingIntent = PendingIntent.getBroadcast(baseContext, 0, exitIntent, flag)
 
         var notification = NotificationCompat.Builder(baseContext, AppClass.CHANNEL_ID)
+            .setContentIntent(contentIntent)
             .setContentTitle(activity_player.musicListPA[activity_player.songPosition].title)
             .setSmallIcon(R.drawable.ic_music)
             .setContentText((activity_player.musicListPA[activity_player.songPosition].artist))
@@ -39,11 +64,11 @@ class MusicService: Service() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setOnlyAlertOnce(true)
-            .addAction(R.drawable.ic_back, "Previous",null )
-            .addAction(R.drawable.ic_pause, "Play", null)
-            .addAction(R.drawable.ic_next, "Next", null)
-            .addAction(R.drawable.ic_exit, "Exit", null)
+            .addAction(R.drawable.ic_back, "Previous",prevPendingIntent )
+            .addAction(playPauseBtn, "Play", playPendingIntent)
+            .addAction(R.drawable.ic_next, "Next", nextPendingIntent)
+            .addAction(R.drawable.ic_exit, "Exit", exitPendingIntent)
             .build()
-           startForeground(13, notification)
+        startForeground(13, notification)
     }
 }
