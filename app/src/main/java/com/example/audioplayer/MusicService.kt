@@ -53,13 +53,16 @@ class MusicService: Service() {
 
         val exitIntent = Intent(baseContext, NotificationReceiver::class.java).setAction(AppClass.EXIT)
         val exitPendingIntent = PendingIntent.getBroadcast(baseContext, 0, exitIntent, flag)
-
+        val imgArt= getImgArt(activity_player.musicListPA[activity_player.songPosition].path)
+        val image=  if(imgArt!=null){
+            BitmapFactory.decodeByteArray(imgArt, 0, imgArt.size)
+        }else{ BitmapFactory.decodeResource(resources, R.drawable.ic_launcher_foreground)}
         var notification = NotificationCompat.Builder(baseContext, AppClass.CHANNEL_ID)
             .setContentIntent(contentIntent)
             .setContentTitle(activity_player.musicListPA[activity_player.songPosition].title)
             .setSmallIcon(R.drawable.ic_music)
             .setContentText((activity_player.musicListPA[activity_player.songPosition].artist))
-            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_launcher_foreground))
+            .setLargeIcon(image)
             .setStyle(androidx.media.app.NotificationCompat.MediaStyle())
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -71,4 +74,5 @@ class MusicService: Service() {
             .build()
         startForeground(13, notification)
     }
+
 }
