@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.IBinder
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
+import java.lang.Exception
 
 
 class MusicService: Service() {
@@ -29,6 +30,18 @@ class MusicService: Service() {
         fun  currentService(): MusicService {
             return this@MusicService
         }
+    }
+     fun createMediaPlayer() {
+        try {
+            if (activity_player.musicService!!.mediaPlayer == null) activity_player.musicService!!.mediaPlayer = MediaPlayer()
+            activity_player.musicService!!.mediaPlayer!!.reset()
+            activity_player.musicService!!.mediaPlayer!!.setDataSource(activity_player.musicListPA[activity_player.songPosition].path)
+            activity_player.musicService!!.mediaPlayer!!.prepare()
+
+            activity_player.binding.playPausePA.setIconResource(R.drawable.ic_pause)
+            activity_player.musicService!!.showNotification(R.drawable.ic_pause)
+        } catch (e: Exception) {return}
+
     }
     @SuppressLint("UnspecifiedImmutableFlag")
     fun showNotification(playPauseBtn: Int){
