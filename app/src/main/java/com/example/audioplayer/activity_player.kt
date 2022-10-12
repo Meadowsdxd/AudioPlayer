@@ -9,6 +9,7 @@ import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.widget.SeekBar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.audioplayer.databinding.ActivityFavoriteBinding
@@ -35,15 +36,19 @@ class activity_player : AppCompatActivity(),ServiceConnection {
         bindService(intent,this, BIND_AUTO_CREATE)
         startService(intent)
         initLayout()
-        binding.playPausePA.setOnClickListener{
-            if(isPlaying) pauseMusic() else playMusic()
-        }
-        binding.playBackPA.setOnClickListener {
-    prevNextSong(increment = false)
-        }
-        binding.playNextPA.setOnClickListener {
-            prevNextSong(increment = true)
-        }
+        binding.playPausePA.setOnClickListener{ if(isPlaying) pauseMusic() else playMusic() }
+        binding.playBackPA.setOnClickListener { prevNextSong(increment = false) }
+        binding.playNextPA.setOnClickListener { prevNextSong(increment = true) }
+        binding.seekBarPA.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar:SeekBar?, progress: Int, p2: Boolean) {
+            if(p2) musicService!!.mediaPlayer!!.seekTo(progress)
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) = Unit
+
+            override fun onStopTrackingTouch(p0: SeekBar?) = Unit
+
+        })
     }
     private fun setLayout(){
         Glide.with(this).load(musicListPA[songPosition].artURI).apply(
@@ -62,6 +67,11 @@ class activity_player : AppCompatActivity(),ServiceConnection {
             isPlaying=true
             binding.playPausePA.setIconResource(R.drawable.ic_pause)
             musicService!!.showNotification(R.drawable.ic_pause)
+            binding.tvSeekBarStart.text= formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+            binding.tvSeekBarEnd.text= formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
+            binding.seekBarPA.progress=0
+            binding.seekBarPA.max= musicService!!.mediaPlayer!!.duration
+
         } catch (e: Exception) {return}
 
     }

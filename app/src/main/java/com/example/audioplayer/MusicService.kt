@@ -37,10 +37,12 @@ class MusicService: Service() {
             activity_player.musicService!!.mediaPlayer!!.reset()
             activity_player.musicService!!.mediaPlayer!!.setDataSource(activity_player.musicListPA[activity_player.songPosition].path)
             activity_player.musicService!!.mediaPlayer!!.prepare()
-
             activity_player.binding.playPausePA.setIconResource(R.drawable.ic_pause)
             activity_player.musicService!!.showNotification(R.drawable.ic_pause)
-        } catch (e: Exception) {return}
+            activity_player.binding.tvSeekBarStart.text= formatDuration(activity_player.musicService!!.mediaPlayer!!.currentPosition.toLong())
+            activity_player.binding.tvSeekBarEnd.text= formatDuration(activity_player.musicService!!.mediaPlayer!!.duration.toLong())
+            activity_player.binding.seekBarPA.progress=0
+            activity_player.binding.seekBarPA.max= activity_player.musicService!!.mediaPlayer!!.duration  } catch (e: Exception) {return}
 
     }
     @SuppressLint("UnspecifiedImmutableFlag")
