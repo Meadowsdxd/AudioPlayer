@@ -9,9 +9,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.media.MediaSession2
-import android.os.Binder
-import android.os.Build
-import android.os.IBinder
+import android.os.*
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import java.lang.Exception
@@ -21,6 +19,7 @@ class MusicService: Service() {
     private  val myBinder =MyBinder()
     var mediaPlayer:MediaPlayer?=null
     private lateinit var mediaSession: MediaSessionCompat
+    private lateinit var runnable: Runnable
     override fun onBind(p0: Intent?): IBinder? {
         mediaSession= MediaSessionCompat(baseContext,"My Music")
         return myBinder
@@ -39,10 +38,10 @@ class MusicService: Service() {
             activity_player.musicService!!.mediaPlayer!!.prepare()
             activity_player.binding.playPausePA.setIconResource(R.drawable.ic_pause)
             activity_player.musicService!!.showNotification(R.drawable.ic_pause)
-            activity_player.binding.tvSeekBarStart.text= formatDuration(activity_player.musicService!!.mediaPlayer!!.currentPosition.toLong())
-            activity_player.binding.tvSeekBarEnd.text= formatDuration(activity_player.musicService!!.mediaPlayer!!.duration.toLong())
+            activity_player.binding.tvSeekBarStart.text= formatDuration(mediaPlayer!!.currentPosition.toLong())
+            activity_player.binding.tvSeekBarEnd.text= formatDuration(mediaPlayer!!.duration.toLong())
             activity_player.binding.seekBarPA.progress=0
-            activity_player.binding.seekBarPA.max= activity_player.musicService!!.mediaPlayer!!.duration  } catch (e: Exception) {return}
+            activity_player.binding.seekBarPA.max= mediaPlayer!!.duration  } catch (e: Exception) {return}
 
     }
     @SuppressLint("UnspecifiedImmutableFlag")
@@ -88,6 +87,14 @@ class MusicService: Service() {
             .addAction(R.drawable.ic_exit, "Exit", exitPendingIntent)
             .build()
         startForeground(13, notification)
+    }
+    fun seekBarSetup(){
+       runnable=Runnable {activity_player.binding.tvSeekBarStart.text= formatDuration(mediaPlayer!!.currentPosition.toLong())
+           activity_player.binding.seekBarPA.progress=mediaPlayer!!.currentPosition
+           Handler(Looper.getMainLooper()).postDelayed(runnable,200)
+
+       }
+        Handler(Looper.getMainLooper()).postDelayed(runnable,0)
     }
 
 }
