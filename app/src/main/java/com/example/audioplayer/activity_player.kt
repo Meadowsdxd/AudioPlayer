@@ -1,7 +1,6 @@
 package com.example.audioplayer
 
 import android.annotation.SuppressLint
-import android.app.Service
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
@@ -12,12 +11,9 @@ import android.os.IBinder
 import android.widget.SeekBar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.audioplayer.databinding.ActivityFavoriteBinding
-import com.example.audioplayer.databinding.ActivityMainBinding
 import com.example.audioplayer.databinding.ActivityPlayerBinding
-import java.lang.Exception
 
-class activity_player : AppCompatActivity(),ServiceConnection {
+class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnCompletionListener {
     companion object {
        lateinit var musicListPA : ArrayList<Music>
        var songPosition: Int = 0
@@ -71,6 +67,7 @@ class activity_player : AppCompatActivity(),ServiceConnection {
             binding.tvSeekBarEnd.text= formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
             binding.seekBarPA.progress=0
             binding.seekBarPA.max= musicService!!.mediaPlayer!!.duration
+            musicService!!.mediaPlayer!!.setOnCompletionListener(this)
 
         } catch (e: Exception) {return}
 
@@ -130,5 +127,13 @@ class activity_player : AppCompatActivity(),ServiceConnection {
 
     override fun onServiceDisconnected(p0: ComponentName?) {
         musicService=null
+    }
+
+    override fun onCompletion(p0: MediaPlayer?) {
+        setSongPosition(increment = true)
+        createMediaPlayer()
+        try {
+            setLayout()
+        }catch (e:Exception){}
     }
 }
