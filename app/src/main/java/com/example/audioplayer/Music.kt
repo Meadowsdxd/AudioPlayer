@@ -17,8 +17,11 @@ val retriviever=MediaMetadataRetriever()
     return retriviever.embeddedPicture
 }
  fun setSongPosition(increment: Boolean){
-    if(increment){
-        if(activity_player.musicListPA.size-1== activity_player.songPosition) activity_player.songPosition =0 else ++activity_player.songPosition
-    }else{  if(0== activity_player.songPosition) activity_player.songPosition = activity_player.musicListPA.size-1 else --activity_player.songPosition
-    }
+
+     if(!activity_player.repeat){
+         if(increment){
+             if(activity_player.musicListPA.size-1== activity_player.songPosition) activity_player.songPosition =0 else ++activity_player.songPosition
+         }else{  if(0== activity_player.songPosition) activity_player.songPosition = activity_player.musicListPA.size-1 else --activity_player.songPosition
+         }
+     }
 }

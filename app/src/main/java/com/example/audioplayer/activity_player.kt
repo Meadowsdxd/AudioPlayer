@@ -2,6 +2,7 @@ package com.example.audioplayer
 
 import android.annotation.SuppressLint
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.media.MediaPlayer
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.widget.SeekBar
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.audioplayer.databinding.ActivityPlayerBinding
@@ -21,6 +23,7 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
         lateinit var binding: ActivityPlayerBinding
         var isPlaying:Boolean=false
         var musicService:MusicService?=null
+        var repeat:Boolean=false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +48,16 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
             override fun onStopTrackingTouch(p0: SeekBar?) = Unit
 
         })
+        binding.repeatBtnPA.setOnClickListener {
+            if(!repeat){
+                repeat=true
+                binding.repeatBtnPA.setColorFilter(ContextCompat.getColor(this,R.color.purple_500))
+            }else {
+                repeat=false
+                binding.repeatBtnPA.setColorFilter(ContextCompat.getColor(this, R.color.teal_200))
+
+            }
+        }
     }
     private fun setLayout(){
         Glide.with(this).load(musicListPA[songPosition].artURI).apply(
@@ -52,6 +65,7 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
             .placeholder(R.drawable.ic_music).centerCrop())
             .into(binding.songImagePA)
         binding.songNamePA.text= musicListPA[songPosition].title
+        if(repeat) binding.repeatBtnPA.setColorFilter(ContextCompat.getColor(this,R.color.purple_500))
     }
     private fun createMediaPlayer() {
         try {
