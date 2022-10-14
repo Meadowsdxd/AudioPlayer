@@ -18,7 +18,8 @@ class NotificationReceiver: BroadcastReceiver() {
                 if(activity_player.isPlaying)pauseMusic()else playMusic()}
             AppClass.EXIT-> {
                activity_player.musicService!!.stopForeground(true)
-               activity_player.musicService=null
+               activity_player.musicService!!.mediaPlayer!!.release()
+                activity_player.musicService=null
                exitProcess(1)
             }
         }

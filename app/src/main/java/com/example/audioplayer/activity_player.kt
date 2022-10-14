@@ -58,6 +58,7 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
 
             }
         }
+        binding.backBTNPA.setOnClickListener { finish() }
     }
     private fun setLayout(){
         Glide.with(this).load(musicListPA[songPosition].artURI).apply(
