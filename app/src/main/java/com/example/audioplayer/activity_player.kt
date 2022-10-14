@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.media.MediaPlayer
+import android.media.audiofx.AudioEffect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
@@ -59,7 +60,15 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
             }
         }
         binding.backBTNPA.setOnClickListener { finish() }
-    }
+        try {
+            binding.equalizerBTNPA.setOnClickListener { val EqIntent=Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
+                EqIntent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, musicService!!.mediaPlayer!!.audioSessionId)
+                EqIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME,baseContext.packageName)
+                EqIntent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE,AudioEffect.CONTENT_TYPE_MUSIC)
+                startActivityForResult(EqIntent,13)
+            }
+        }catch (e:Exception){}
+      }
     private fun setLayout(){
         Glide.with(this).load(musicListPA[songPosition].artURI).apply(
             RequestOptions()
@@ -150,5 +159,12 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
         try {
             setLayout()
         }catch (e:Exception){}
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==13|| resultCode== RESULT_OK){
+            return
+        }
     }
 }
