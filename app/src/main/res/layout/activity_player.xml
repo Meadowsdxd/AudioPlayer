@@ -141,16 +141,9 @@
         android:contentDescription="@string/equalizer_btn"
         app:tint="@color/teal_200"
         android:layout_weight="1"/>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_timer"
-        android:background="@android:color/transparent"
-        android:layout_marginEnd="5dp"
-        android:contentDescription="@string/timer_btn"
-        app:tint="@color/teal_200"
-        android:layout_weight="1"/>
+
         <ImageButton
+            android:id="@+id/shareBTNPA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_share"

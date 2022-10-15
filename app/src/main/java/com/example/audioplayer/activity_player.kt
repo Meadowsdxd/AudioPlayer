@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.media.MediaPlayer
 import android.media.audiofx.AudioEffect
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
@@ -68,6 +69,13 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
                 startActivityForResult(EqIntent,13)
             }
         }catch (e:Exception){}
+        binding.shareBTNPA.setOnClickListener {
+            val shareIntent=Intent()
+            shareIntent.action=Intent.ACTION_SEND
+            shareIntent.type="audio/*"
+            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(musicListPA[songPosition].path))
+            startActivity(Intent.createChooser(shareIntent,"Sharing Music File"))
+        }
       }
     private fun setLayout(){
         Glide.with(this).load(musicListPA[songPosition].artURI).apply(
