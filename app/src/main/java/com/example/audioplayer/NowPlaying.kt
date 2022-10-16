@@ -1,6 +1,7 @@
 package com.example.audioplayer
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ class NowPlaying : Fragment() {
         binding.playPauseNP.setOnClickListener {
             if(activity_player.isPlaying)pauseMusic()else playMusic()
         }
+        binding.playNextNP.setOnClickListener { NextSong()}
         return view
     }
 
@@ -53,5 +55,16 @@ class NowPlaying : Fragment() {
         activity_player.musicService!!.showNotification(R.drawable.ic_play)
         activity_player.binding.playNextPA.setIconResource(R.drawable.ic_play)
         activity_player.isPlaying=false
+    }
+    private fun NextSong(){
+        setSongPosition(increment=true)
+        activity_player.musicService!!.createMediaPlayer()
+        Glide.with(this).load(activity_player.musicListPA[activity_player.songPosition].artURI).apply(
+            RequestOptions()
+                .placeholder(R.drawable.ic_music).centerCrop())
+            .into(binding.songimgNP)
+        binding.songNameNP.text=activity_player.musicListPA[activity_player.songPosition].title
+        activity_player.musicService!!.showNotification(R.drawable.ic_pause)
+        playMusic()
     }
 }
