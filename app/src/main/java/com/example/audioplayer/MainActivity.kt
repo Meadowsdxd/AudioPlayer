@@ -8,7 +8,9 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -146,5 +148,20 @@ if (requestRuntimePermission()){
             activity_player.musicService=null
             exitProcess(1)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_view,menu)
+        val searchView=menu?.findItem(R.id.searchView)?.actionView as androidx.appcompat.widget.SearchView
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean =true
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+            Toast.makeText(this@MainActivity, newText,Toast.LENGTH_SHORT).show()
+                return true
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
+
     }
     }
