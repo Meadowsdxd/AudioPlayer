@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private  lateinit var musicAdapter: MusicAdapter
     companion object {
         lateinit  var MusiListMA:ArrayList<Music>
+        lateinit var  musicListSearch : ArrayList<Music>
+        var search:Boolean=false
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -93,6 +95,7 @@ if (requestRuntimePermission()){
     }
     @RequiresApi(Build.VERSION_CODES.R)
     private  fun init(){
+        search=false
         setTheme(R.style.Theme_AudioPlayer)
         requestRuntimePermission()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -157,7 +160,15 @@ if (requestRuntimePermission()){
             override fun onQueryTextSubmit(query: String?): Boolean =true
 
             override fun onQueryTextChange(newText: String?): Boolean {
-            Toast.makeText(this@MainActivity, newText,Toast.LENGTH_SHORT).show()
+                musicListSearch= ArrayList()
+            if(newText!=null){
+                val userInput=newText.lowercase()
+                for(song in MusiListMA)
+                    if(song.title.lowercase().contains(userInput))
+                        musicListSearch.add(song)
+                search=true
+                musicAdapter.updateMusicList(searchList = musicListSearch)
+            }
                 return true
             }
         })
