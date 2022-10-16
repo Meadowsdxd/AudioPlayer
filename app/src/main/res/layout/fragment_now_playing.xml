@@ -52,6 +52,11 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_toStartOf="@id/playPauseNP"
-        android:layout_toEndOf="@id/songimgNP"/>
+        android:layout_toEndOf="@id/songimgNP"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+
+        />
 
 </RelativeLayout>

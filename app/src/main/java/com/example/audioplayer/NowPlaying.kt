@@ -32,6 +32,7 @@ class NowPlaying : Fragment() {
         super.onResume()
         if(activity_player.musicService!=null){
             binding.root.visibility=View.VISIBLE
+            binding.songNameNP.isSelected=true
             Glide.with(this).load(activity_player.musicListPA[activity_player.songPosition].artURI).apply(
                 RequestOptions()
                     .placeholder(R.drawable.ic_music).centerCrop())
