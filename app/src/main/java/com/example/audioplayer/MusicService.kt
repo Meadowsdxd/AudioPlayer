@@ -12,6 +12,8 @@ import android.media.MediaSession2
 import android.os.*
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+import com.example.audioplayer.NowPlaying.Companion.binding
 import java.lang.Exception
 
 
@@ -42,7 +44,7 @@ class MusicService: Service() {
             activity_player.binding.tvSeekBarEnd.text= formatDuration(mediaPlayer!!.duration.toLong())
             activity_player.binding.seekBarPA.progress=0
             activity_player.binding.seekBarPA.max= mediaPlayer!!.duration  } catch (e: Exception) {return}
-
+            activity_player.nowPlayingId = activity_player.musicListPA[activity_player.songPosition].id
     }
     @SuppressLint("UnspecifiedImmutableFlag")
     fun showNotification(playPauseBtn: Int){
@@ -86,8 +88,7 @@ class MusicService: Service() {
             .addAction(R.drawable.ic_next, "Next", nextPendingIntent)
             .addAction(R.drawable.ic_exit, "Exit", exitPendingIntent)
             .build()
-        startForeground(13, notification)
-    }
+        startForeground(13, notification) }
     fun seekBarSetup(){
        runnable=Runnable {activity_player.binding.tvSeekBarStart.text= formatDuration(mediaPlayer!!.currentPosition.toLong())
            activity_player.binding.seekBarPA.progress=mediaPlayer!!.currentPosition
