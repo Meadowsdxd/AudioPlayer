@@ -2,11 +2,13 @@ package com.example.audioplayer
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.audioplayer.databinding.FragmentNowPlayingBinding
@@ -25,6 +27,12 @@ class NowPlaying : Fragment() {
             if(activity_player.isPlaying)pauseMusic()else playMusic()
         }
         binding.playNextNP.setOnClickListener { NextSong()}
+        binding.root.setOnClickListener{
+            val intent= Intent(context,activity_player::class.java)
+            intent.putExtra("index",activity_player.songPosition)
+            intent.putExtra("class","NowPlaying")
+            ContextCompat.startActivity(requireContext(),intent,null)
+        }
         return view
     }
 
