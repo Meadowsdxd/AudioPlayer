@@ -139,10 +139,8 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
                 binding.tvSeekBarEnd.text=formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
                 binding.seekBarPA.progress= musicService!!.mediaPlayer!!.currentPosition
                 binding.seekBarPA.max= musicService!!.mediaPlayer!!.duration
-                if(isPlaying)
-                    binding.playPausePA.setIconResource(R.drawable.ic_pause)
-                else
-                    binding.playPausePA.setIconResource(R.drawable.ic_play)
+                if(isPlaying) binding.playPausePA.setIconResource(R.drawable.ic_pause)
+                else binding.playPausePA.setIconResource(R.drawable.ic_play)
             }
             "MusicAdapterSearch"->{
                 val  intent=Intent(this,MusicService::class.java)

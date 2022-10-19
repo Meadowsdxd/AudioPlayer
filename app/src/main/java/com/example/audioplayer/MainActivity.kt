@@ -17,7 +17,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.audioplayer.databinding.ActivityMainBinding
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import java.io.File
+import java.lang.reflect.Type
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
@@ -31,11 +34,22 @@ class MainActivity : AppCompatActivity() {
         var search:Boolean=false
     }
 
+
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-if (requestRuntimePermission()){
-        init()}
+if (requestRuntimePermission()){ init()
+    Favorite.favoriteSongs= ArrayList()
+    //for retrieving favourites data using shared preferences
+    val editor = getSharedPreferences("FAVORITES", MODE_PRIVATE)
+    val jsonString =editor.getString("FavoriteSongs",null)
+    val typeToken = object : TypeToken<ArrayList<Music>>(){}.type
+
+    if(jsonString != null){
+        val data: ArrayList<Music> = GsonBuilder().create().fromJson(jsonString, typeToken)
+        Favorite.favoriteSongs.addAll(data)
+    }else{Toast.makeText(this,"empty",Toast.LENGTH_SHORT).show()}
+  }
 
 
         binding.shuffleBTN.setOnClickListener{
@@ -150,7 +164,20 @@ if (requestRuntimePermission()){
             activity_player.musicService!!.mediaPlayer!!.release()
             activity_player.musicService=null
             exitProcess(1)
+
         }
+
+         }
+
+    override fun onResume() {
+        super.onResume()
+        //for storing favourites data using shared preferences
+        val editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit()
+        val jsonString = GsonBuilder().create().toJson(Favorite.favoriteSongs)
+        editor.putString("FavoriteSongs", jsonString)
+        editor.apply()
+        if(jsonString == null)Toast.makeText(this,"empty",Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

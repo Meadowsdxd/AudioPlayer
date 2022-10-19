@@ -1,5 +1,6 @@
 package com.example.audioplayer
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -45,5 +46,10 @@ class FavoriteAdapter(private val  context:Context,private var  musicList:ArrayL
     override fun getItemCount(): Int {
         return musicList.size
     }
-
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateFavourites(newList: ArrayList<Music>){
+        musicList = ArrayList()
+        musicList.addAll(newList)
+        notifyDataSetChanged()
+    }
 }
