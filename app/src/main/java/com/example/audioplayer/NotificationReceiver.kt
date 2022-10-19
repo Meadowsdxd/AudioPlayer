@@ -54,5 +54,9 @@ class NotificationReceiver: BroadcastReceiver() {
             .into(NowPlaying.binding.songimgNP)
         NowPlaying.binding.songNameNP.text=activity_player.musicListPA[activity_player.songPosition].title
         playMusic()
+        activity_player.fIndex= favoriteChecker(activity_player.musicListPA[activity_player.songPosition].id)
+        if(activity_player.isFavorite)activity_player.binding.favoriteBTNPA.setImageResource(R.drawable.ic_baseline_favoritefull_24)
+        else activity_player.binding.favoriteBTNPA.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+
     }
 }

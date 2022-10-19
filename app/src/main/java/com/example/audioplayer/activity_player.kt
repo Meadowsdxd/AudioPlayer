@@ -125,6 +125,14 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
     private fun initLayout(){
         songPosition = intent.getIntExtra("index",0)
         when(intent.getStringExtra("class")){
+            "FavoriteAdapter"->{
+                val  intent=Intent(this,MusicService::class.java)
+                bindService(intent,this, BIND_AUTO_CREATE)
+                startService(intent)
+                musicListPA= ArrayList()
+                musicListPA.addAll(Favorite.favoriteSongs)
+                setLayout()
+            }
             "NowPlaying"->{
                 setLayout()
                 binding.tvSeekBarStart.text= formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())

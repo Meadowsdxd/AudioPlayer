@@ -19,6 +19,7 @@ class FavoriteAdapter(private val  context:Context,private var  musicList:ArrayL
     class MyHolder(binding: FavoriteViewBinding):RecyclerView.ViewHolder(binding.root) {
         val image=binding.songImgFV
         val name=binding.songNameFV
+        val root=binding.root
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteAdapter.MyHolder {
@@ -33,16 +34,16 @@ class FavoriteAdapter(private val  context:Context,private var  musicList:ArrayL
             .placeholder(R.drawable.ic_music)
             .centerCrop())
             .into(holder.image)
+        holder.root.setOnClickListener {
+            val intent=Intent(context,activity_player::class.java)
+            intent.putExtra("index",position)
+            intent.putExtra("class","FavoriteAdapter")
+            ContextCompat.startActivity(context,intent,null)
+        }
     }
 
     override fun getItemCount(): Int {
         return musicList.size
     }
 
-    private fun sendIntent(ref:String,pos: Int){
-        val intent=Intent(context,activity_player::class.java)
-        intent.putExtra("index",pos)
-        intent.putExtra("class",ref)
-        ContextCompat.startActivity(context,intent,null)
-    }
 }
