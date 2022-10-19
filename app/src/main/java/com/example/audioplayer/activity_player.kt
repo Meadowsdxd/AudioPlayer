@@ -25,8 +25,10 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
         lateinit var binding: ActivityPlayerBinding
         var isPlaying:Boolean=false
         var musicService:MusicService?=null
-        var repeat:Boolean=false
+        var repeat:Boolean = false
         var nowPlayingId: String=""
+        var isFavorite:Boolean = false
+        var fIndex: Int = -1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,14 +79,29 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
             shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(musicListPA[songPosition].path))
             startActivity(Intent.createChooser(shareIntent,"Sharing Music File"))
         }
+        binding.favoriteBTNPA.setOnClickListener {
+            if(isFavorite){
+            isFavorite=false
+            binding.favoriteBTNPA.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            Favorite.favoriteSongs.removeAt(fIndex)
+            }else{
+                isFavorite=true
+                binding.favoriteBTNPA.setImageResource(R.drawable.ic_baseline_favoritefull_24)
+                Favorite.favoriteSongs.add(musicListPA[songPosition])
+        }
+        }
       }
     private fun setLayout(){
+        fIndex = favoriteChecker(musicListPA[songPosition].id)
         Glide.with(this).load(musicListPA[songPosition].artURI).apply(
             RequestOptions()
             .placeholder(R.drawable.ic_music).centerCrop())
             .into(binding.songImagePA)
         binding.songNamePA.text= musicListPA[songPosition].title
         if(repeat) binding.repeatBtnPA.setColorFilter(ContextCompat.getColor(this,R.color.purple_500))
+        if(isFavorite) binding.favoriteBTNPA.setImageResource(R.drawable.ic_baseline_favoritefull_24)
+        else binding.favoriteBTNPA.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+
     }
     private fun createMediaPlayer() {
         try {

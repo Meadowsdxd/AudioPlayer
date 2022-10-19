@@ -14,7 +14,7 @@ import com.example.audioplayer.databinding.FavoriteViewBinding
 
 import com.example.audioplayer.databinding.MusicviewBinding
 
-class FavoriteAdapter(private val  context:Context,private var  musicList:ArrayList<String>): RecyclerView.Adapter<FavoriteAdapter.MyHolder>() {
+class FavoriteAdapter(private val  context:Context,private var  musicList:ArrayList<Music>): RecyclerView.Adapter<FavoriteAdapter.MyHolder>() {
 
     class MyHolder(binding: FavoriteViewBinding):RecyclerView.ViewHolder(binding.root) {
         val image=binding.songImgFV
@@ -26,7 +26,13 @@ class FavoriteAdapter(private val  context:Context,private var  musicList:ArrayL
     }
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
-    holder.name.text=musicList[position]
+    holder.name.text=musicList[position].title
+        Glide.with(context)
+            .load(musicList[position].artURI )
+            .apply(RequestOptions()
+            .placeholder(R.drawable.ic_music)
+            .centerCrop())
+            .into(holder.image)
     }
 
     override fun getItemCount(): Int {

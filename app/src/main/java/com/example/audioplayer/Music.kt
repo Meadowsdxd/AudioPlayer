@@ -23,5 +23,15 @@ val retriviever=MediaMetadataRetriever()
              if(activity_player.musicListPA.size-1== activity_player.songPosition) activity_player.songPosition =0 else ++activity_player.songPosition
          }else{  if(0== activity_player.songPosition) activity_player.songPosition = activity_player.musicListPA.size-1 else --activity_player.songPosition
          }
+     }}
+     fun favoriteChecker(id:String): Int{
+         activity_player.isFavorite=false
+
+        Favorite.favoriteSongs.forEachIndexed { index, music ->
+            if(id==music.id){
+                activity_player.isFavorite=true
+                return index
+            }
+        }
+         return -1
      }
-}
