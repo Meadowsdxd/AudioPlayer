@@ -80,6 +80,7 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
             startActivity(Intent.createChooser(shareIntent,"Sharing Music File"))
         }
         binding.favoriteBTNPA.setOnClickListener {
+
             if(isFavorite){
             isFavorite=false
             binding.favoriteBTNPA.setImageResource(R.drawable.ic_baseline_favorite_border_24)
@@ -125,6 +126,15 @@ class activity_player : AppCompatActivity(),ServiceConnection,MediaPlayer.OnComp
     private fun initLayout(){
         songPosition = intent.getIntExtra("index",0)
         when(intent.getStringExtra("class")){
+            "Favorite"->{
+                val  intent=Intent(this,MusicService::class.java)
+                bindService(intent,this, BIND_AUTO_CREATE)
+                startService(intent)
+                musicListPA= ArrayList()
+                musicListPA.addAll(Favorite.favoriteSongs)
+                musicListPA.shuffle()
+                setLayout()
+            }
             "FavoriteAdapter"->{
                 val  intent=Intent(this,MusicService::class.java)
                 bindService(intent,this, BIND_AUTO_CREATE)

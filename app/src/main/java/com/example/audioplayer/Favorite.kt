@@ -1,7 +1,9 @@
 package com.example.audioplayer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.audioplayer.databinding.ActivityFavoriteBinding
@@ -30,5 +32,12 @@ class Favorite : AppCompatActivity() {
         binding.favoriteRV.layoutManager=GridLayoutManager(this,4)
         adapter= FavoriteAdapter(this, favoriteSongs)
         binding.favoriteRV.adapter=adapter
+        if(favoriteSongs.size<1) binding.shuffleBTNFA.visibility= View.INVISIBLE
+        binding.shuffleBTNFA.setOnClickListener {
+            val intent= Intent(this,activity_player::class.java)
+            intent.putExtra("index",0)
+            intent.putExtra("class","Favorite")
+            startActivity(intent)
+        }
     }
 }
