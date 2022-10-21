@@ -16,6 +16,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/playlistNamePD"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:singleLine="true"
@@ -38,6 +39,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/yourlistNamePD"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:singleLine="true"
