@@ -2,8 +2,10 @@ package com.example.audioplayer
 
 import android.media.MediaMetadataRetriever
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 data class Music(val id:String,val title:String,val album:String,val artist:String,val duration:Long=0,val path:String,val artURI:String)
+
     fun formatDuration(duration: Long):String{
         val minutes = TimeUnit.MINUTES.convert(duration, TimeUnit.MILLISECONDS)
         val seconds = (TimeUnit.SECONDS.convert(duration, TimeUnit.MILLISECONDS) -
@@ -15,6 +17,14 @@ fun getImgArt(path:String): ByteArray? {
 val retriviever=MediaMetadataRetriever()
     retriviever.setDataSource(path)
     return retriviever.embeddedPicture
+}
+fun exitApplication(){
+    if(activity_player.musicService != null){
+        activity_player.musicService!!.audioManager.abandonAudioFocus(activity_player.musicService)
+        activity_player.musicService!!.stopForeground(true)
+        activity_player.musicService!!.mediaPlayer!!.release()
+        activity_player.musicService = null}
+    exitProcess(1)
 }
  fun setSongPosition(increment: Boolean){
 

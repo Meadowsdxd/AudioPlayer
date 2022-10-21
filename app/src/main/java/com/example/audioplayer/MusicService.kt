@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.MediaSession2
 import android.os.*
@@ -17,11 +18,12 @@ import com.example.audioplayer.NowPlaying.Companion.binding
 import java.lang.Exception
 
 
-class MusicService: Service() {
+class MusicService: Service(), AudioManager.OnAudioFocusChangeListener {
     private  val myBinder =MyBinder()
     var mediaPlayer:MediaPlayer?=null
     private lateinit var mediaSession: MediaSessionCompat
     private lateinit var runnable: Runnable
+    lateinit var audioManager: AudioManager
     override fun onBind(p0: Intent?): IBinder? {
         mediaSession= MediaSessionCompat(baseContext,"My Music")
         return myBinder
@@ -96,6 +98,18 @@ class MusicService: Service() {
 
        }
         Handler(Looper.getMainLooper()).postDelayed(runnable,0)
+    }
+
+    override fun onAudioFocusChange(p0: Int) {
+        if(p0 <= 0){
+            //pause music
+            activity_player.binding.playPausePA.setIconResource(R.drawable.ic_play)
+            binding.playPauseNP.setIconResource(R.drawable.ic_play)
+            activity_player.isPlaying = false
+            mediaPlayer!!.pause()
+            showNotification(R.drawable.ic_play)
+
+        }
     }
 
 }
