@@ -37,7 +37,7 @@ class PlaylistViewAdapter (private val  context: Context, private var  playlistL
         holder.name.text=playlistList[position].name
             holder.name.isSelected=true
         holder.delete.setOnClickListener {
-            val builder = MaterialAlertDialogBuilder(this)
+            val builder = MaterialAlertDialogBuilder(context)
             builder.setTitle(playlistList[position].name)
                 .setMessage("Delete playlist?")
                 .setPositiveButton("Yes"){ dialog, _ ->
