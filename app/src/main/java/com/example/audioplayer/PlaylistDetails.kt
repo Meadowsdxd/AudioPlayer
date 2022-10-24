@@ -1,6 +1,7 @@
 package com.example.audioplayer
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -33,7 +34,15 @@ class PlaylistDetails : AppCompatActivity() {
         adapter= MusicAdapter(this, PlaylistActivity.musicPlaylist.ref[currentPlayListPos].playlist,playlistDetails = true)
         binding.playlistDetailsRV.adapter=adapter
         binding.backBTNPD.setOnClickListener { finish() }
+        binding.shuffleDatailsBTN.setOnClickListener {
+            val intent= Intent(this,activity_player::class.java)
+            intent.putExtra("index",0)
+            intent.putExtra("class","PlaylistShuffle")
+            startActivity(intent)
     }
+    binding.addPd.setOnClickListener {
+        startActivity(Intent(this,SelectionActivity::class.java))
+    }}
 
     @SuppressLint("SetTextI18n")
     override fun onResume() {
