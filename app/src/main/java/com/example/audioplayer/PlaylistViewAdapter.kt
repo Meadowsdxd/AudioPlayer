@@ -60,6 +60,12 @@ val customDialog = builder.create()
             ContextCompat.startActivity(context,intent,null)
 
         }
+        if(PlaylistActivity.musicPlaylist.ref[position].playlist.size>0){
+            Glide.with(context).load(PlaylistActivity.musicPlaylist.ref[position].playlist[0].artURI).apply(
+                RequestOptions()
+                    .placeholder(R.drawable.ic_music).centerCrop())
+                .into(holder.image)
+        }
         }
 
     fun refreshPlaylist(){

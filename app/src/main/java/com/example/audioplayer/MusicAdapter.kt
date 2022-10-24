@@ -34,14 +34,23 @@ class MusicAdapter(private val  context:Context,private var  musicList:ArrayList
         Glide.with(context).load(musicList[position].artURI).apply(RequestOptions()
             .placeholder(R.drawable.ic_music).centerCrop())
             .into(holder.image)
-        holder.root.setOnClickListener{
-            when{
-                MainActivity.search-> sendIntent(ref="MusicAdapterSearch", pos = position)
-                musicList[position].id==activity_player.nowPlayingId->sendIntent(ref = "NowPlaying", pos = activity_player.songPosition)
-                else-> sendIntent("MusicAdapter",pos=position)
-            }
+        when{
+            playlistDetails ->{
+                holder.root.setOnClickListener {
+                    sendIntent(ref="PlaylistDetailsAdapter", pos = position)
+                }
+            } else ->{
+            holder.root.setOnClickListener{
+                when{
+                    MainActivity.search-> sendIntent(ref="MusicAdapterSearch", pos = position)
+                    musicList[position].id==activity_player.nowPlayingId->sendIntent(ref = "NowPlaying", pos = activity_player.songPosition)
+                    else-> sendIntent("MusicAdapter",pos=position)
+                }
 
+            }
+            }
         }
+
     }
 
     override fun getItemCount(): Int {

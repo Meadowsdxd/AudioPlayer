@@ -1,5 +1,6 @@
 package com.example.audioplayer
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,7 +20,7 @@ class PlaylistDetails : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.Theme_AudioPlayer)
+        setTheme(R.style.coolPink)
 
         binding = ActivityPlaylistDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -28,11 +29,13 @@ class PlaylistDetails : AppCompatActivity() {
         binding.playlistDetailsRV.setHasFixedSize(true)
         binding.playlistDetailsRV.layoutManager=LinearLayoutManager(this)
         PlaylistActivity.musicPlaylist.ref[currentPlayListPos].playlist.addAll(MainActivity.MusiListMA)
+        PlaylistActivity.musicPlaylist.ref[currentPlayListPos].playlist.shuffle()
         adapter= MusicAdapter(this, PlaylistActivity.musicPlaylist.ref[currentPlayListPos].playlist,playlistDetails = true)
         binding.playlistDetailsRV.adapter=adapter
-
+        binding.backBTNPD.setOnClickListener { finish() }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onResume() {
         super.onResume()
         binding.playlistNamePD.text=PlaylistActivity.musicPlaylist.ref[currentPlayListPos].name

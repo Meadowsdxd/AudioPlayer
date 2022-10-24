@@ -23,8 +23,10 @@ class PlaylistActivity : AppCompatActivity() {
    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.coolPink)
         binding = ActivityPlaylistBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.playlistRV.setHasFixedSize(true)
         binding.playlistRV.setItemViewCacheSize(13)
         binding.playlistRV.layoutManager= GridLayoutManager(this@PlaylistActivity,2)
