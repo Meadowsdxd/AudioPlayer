@@ -49,7 +49,16 @@ if (requestRuntimePermission()){ init()
         val data: ArrayList<Music> = GsonBuilder().create().fromJson(jsonString, typeToken)
         Favorite.favoriteSongs.addAll(data)
     }else{Toast.makeText(this,"empty",Toast.LENGTH_SHORT).show()}
-  }
+    PlaylistActivity.musicPlaylist= MusicPlayList()
+    //for retrieving favourites data using shared preferences
+    val editorPlaylist = getSharedPreferences("FAVORITES", MODE_PRIVATE)
+    val jsonStringPlayList =editorPlaylist.getString("MusicPlaylist",null)
+    if(jsonStringPlayList != null){
+        val dataPlalist: MusicPlayList = GsonBuilder().create().fromJson(jsonStringPlayList, MusicPlayList::class.java)
+        PlaylistActivity.musicPlaylist = (dataPlalist)
+    }else{Toast.makeText(this,"empty",Toast.LENGTH_SHORT).show()}
+
+}
 
 
         binding.shuffleBTN.setOnClickListener{
@@ -175,6 +184,8 @@ if (requestRuntimePermission()){ init()
         val editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit()
         val jsonString = GsonBuilder().create().toJson(Favorite.favoriteSongs)
         editor.putString("FavoriteSongs", jsonString)
+        val jsonStringPlayList = GsonBuilder().create().toJson(PlaylistActivity.musicPlaylist)
+        editor.putString("MusicPlaylist", jsonStringPlayList)
         editor.apply()
         if(jsonString == null)Toast.makeText(this,"empty",Toast.LENGTH_SHORT).show()
 

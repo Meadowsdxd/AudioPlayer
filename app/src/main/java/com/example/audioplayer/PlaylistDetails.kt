@@ -6,6 +6,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -14,6 +15,7 @@ import com.example.audioplayer.databinding.ActivityMainBinding
 import com.example.audioplayer.databinding.ActivityPlaylistDetailsBinding
 import com.example.audioplayer.databinding.PlaylistViewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.GsonBuilder
 
 class PlaylistDetails : AppCompatActivity() {
     lateinit var binding: ActivityPlaylistDetailsBinding
@@ -79,5 +81,10 @@ class PlaylistDetails : AppCompatActivity() {
         binding.shuffleDatailsBTN.visibility= View.VISIBLE
     }
         adapter.notifyDataSetChanged()
+        //for storing favourites data using shared preferences
+        val editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit()
+        val jsonStringPlayList = GsonBuilder().create().toJson(PlaylistActivity.musicPlaylist)
+        editor.putString("MusicPlaylist", jsonStringPlayList)
+        editor.apply()
     }
 }
