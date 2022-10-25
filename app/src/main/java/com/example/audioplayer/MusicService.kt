@@ -50,6 +50,8 @@ class MusicService: Service(), AudioManager.OnAudioFocusChangeListener {
     }
     @SuppressLint("UnspecifiedImmutableFlag")
     fun showNotification(playPauseBtn: Int){
+
+
         val intent = Intent(baseContext, MainActivity::class.java)
 
         val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

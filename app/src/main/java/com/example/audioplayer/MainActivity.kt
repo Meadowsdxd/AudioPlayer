@@ -17,6 +17,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.audioplayer.databinding.ActivityMainBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.io.File
@@ -79,7 +80,21 @@ if (requestRuntimePermission()){ init()
                 R.id.Feedback_item->Toast.makeText(this@MainActivity,"Feed",Toast.LENGTH_SHORT).show()
                 R.id.About_item->Toast.makeText(this@MainActivity,"About_item",Toast.LENGTH_SHORT).show()
                 R.id.Settings_item->Toast.makeText(this@MainActivity,"Settings_item",Toast.LENGTH_SHORT).show()
-                R.id.Exit_item-> exitProcess(1)
+                R.id.Exit_item-> {
+                    val builder = MaterialAlertDialogBuilder(this)
+                    builder.setTitle("Exit")
+                        .setMessage("Do you want to close app?")
+                        .setPositiveButton("Yes"){ _, _ ->
+                            exitApplication()
+                        }
+                        .setNegativeButton("No"){dialog, _ ->
+                            dialog.dismiss()
+                        }
+                    val customDialog = builder.create()
+                    customDialog.show()
+
+                    setDialogBtnBackground(this, customDialog)
+                }
 
             }
             true
@@ -168,15 +183,13 @@ if (requestRuntimePermission()){ init()
 
     override fun onDestroy() {
         super.onDestroy()
-        if(!activity_player.isPlaying&&activity_player.musicService!=null){
-            activity_player.musicService!!.stopForeground(true)
-            activity_player.musicService!!.mediaPlayer!!.release()
-            activity_player.musicService=null
-            exitProcess(1)
+        if(!activity_player.isPlaying && activity_player.musicService != null){
+            exitApplication()
+        }
 
         }
 
-         }
+
 
     override fun onResume() {
         super.onResume()
