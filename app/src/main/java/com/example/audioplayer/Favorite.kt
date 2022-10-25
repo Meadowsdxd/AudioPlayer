@@ -24,7 +24,7 @@ class Favorite : AppCompatActivity() {
         setTheme(R.style.coolPink)
         binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        favoriteSongs= checkPlaylist(favoriteSongs)
         binding.backBTNPFA.setOnClickListener { finish() }
         binding.favoriteRV.setHasFixedSize(true)
         binding.favoriteRV.setItemViewCacheSize(13)
