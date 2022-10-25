@@ -77,9 +77,7 @@ if (requestRuntimePermission()){ init()
 
         binding.navView.setNavigationItemSelectedListener{
             when(it.itemId){
-                R.id.Feedback_item->startActivity(Intent(this@MainActivity,FeedbackActivity::class.java))
                 R.id.About_item->startActivity(Intent(this@MainActivity,AboutActivity::class.java))
-                R.id.Settings_item->startActivity(Intent(this@MainActivity,SettingsActivity::class.java))
                 R.id.Exit_item-> {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle("Exit")

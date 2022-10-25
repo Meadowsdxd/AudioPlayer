@@ -7,13 +7,13 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.audioplayer.databinding.ActivityFavoriteBinding
-import com.example.audioplayer.databinding.ActivityMainBinding
+
 
 class Favorite : AppCompatActivity() {
 
-    private lateinit var binding: ActivityFavoriteBinding
-    private lateinit var adapter: FavoriteAdapter
 
+    private lateinit var adapter: FavoriteAdapter
+    private lateinit var binding: ActivityFavoriteBinding
     companion object{
         var favoriteSongs: ArrayList<Music> = ArrayList()
 
