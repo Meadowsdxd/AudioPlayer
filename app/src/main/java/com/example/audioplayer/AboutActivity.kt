@@ -13,6 +13,10 @@ class AboutActivity : AppCompatActivity() {
         setTheme(R.style.coolPinkNav)
         binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.title="About"
+        supportActionBar?.title = "About"
+        binding.aboutText.text = aboutText()
+    }
+    private fun aboutText(): String{
+        return "Developed By: Mead"
     }
 }
